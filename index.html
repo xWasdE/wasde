@@ -1,334 +1,478 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WasdE | Yazılım ve Teknoloji</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.4/lottie.min.js"></script>
-  <style>
-    :root {
-      --accent: #00b8ff;
-      --bg-dark: #0f2027;
-      --bg-mid: #203a43;
-      --bg-light: #2c5364;
-      --light: #ffffff;
-      --dark: #111111;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, var(--bg-dark), var(--bg-mid), var(--bg-light));
-      color: var(--light);
-      line-height: 1.6;
-      transition: background 0.4s, color 0.4s;
-    }
-    body.light {
-      background: #f7f7f7;
-      color: #111;
-    }
-    body.light header, body.light footer {
-      background: #fff;
-      color: #000;
-    }
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-    }
-    .logo-img {
-      height: 42px;
-      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
-    }
-    nav {
-      display: flex;
-      align-items: center;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-    nav a {
-      color: inherit;
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-    }
-    nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      height: 3px;
-      width: 0;
-      background: var(--accent);
-      border-radius: 2px;
-      transition: 0.3s;
-    }
-    nav a:hover::after,
-    nav a.active::after {
-      width: 100%;
-    }
-    .theme-toggle {
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: var(--light);
-      font-size: 1.2rem;
-      margin-left: 1.5rem;
-    }
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 1.2rem;
-      padding-top: 6rem;
-    }
-    .hero h1 {
-      font-size: 3.2rem;
-      font-weight: 700;
-      animation: bounce 3s infinite;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-    .btn {
-      margin-top: 2rem;
-      padding: 0.9rem 2.5rem;
-      border: none;
-      border-radius: 50px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 25px rgba(0, 184, 255, 0.25);
-    }
-    section {
-      padding: 6.5rem 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .section-title {
-      font-size: 2.5rem;
-      text-align: center;
-      margin-bottom: 3.2rem;
-      position: relative;
-    }
-    .section-title::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: -10px;
-      width: 60px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
-    .services-container {
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-    .service-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(6px);
-      padding: 2rem;
-      border-radius: 20px;
-      text-align: center;
-      transition: 0.4s;
-    }
-    .service-card:hover {
-      transform: translateY(-6px);
-      background: rgba(255, 255, 255, 0.09);
-    }
-    .service-card i {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      color: var(--accent);
-    }
-    .contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      width: min(100%, 600px);
-      margin: auto;
-    }
-    .contact input,
-    .contact textarea {
-      padding: 1rem;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      resize: none;
-    }
-    footer {
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(4px);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-    }
-    .testimonials {
-      margin-top: 4rem;
-    }
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-      40% {transform: translateY(-15px);}
-      60% {transform: translateY(-7px);}
-    }
-    @media(max-width: 768px) {
-      nav ul {
-        display: none;
-      }
-      nav ul.show {
-        display: flex;
-        flex-direction: column;
-        background: #000;
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        padding: 1rem;
-        border-radius: 10px;
-        z-index: 1001;
-      }
-      .menu-toggle {
-        display: inline-block;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: var(--light);
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WasdE | Yazılım ve Teknoloji</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto&display=swap" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.4/lottie.min.js"></script>
+    <style>
+        :root {
+            --accent: #00b8ff;
+            --bg-dark: #0f2027;
+            --bg-mid: #203a43;
+            --bg-light: #2c5364;
+            --light: #ffffff;
+            --dark: #111111;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-mid), var(--bg-light));
+            color: var(--light);
+            line-height: 1.6;
+            transition: background 0.4s, color 0.4s;
+            overflow-x: hidden; /* Yatay kaydırmayı engeller */
+        }
+        body.light {
+            background: #f7f7f7;
+            color: #111;
+        }
+        body.light header, body.light footer {
+            background: #fff;
+            color: #000;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .logo-img {
+            height: 50px; /* Logo boyutu güncellendi */
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+        }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        nav a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            height: 3px;
+            width: 0;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+        .theme-toggle {
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.2rem;
+            margin-left: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 1.2rem;
+            padding-top: 6rem;
+            opacity: 0; /* Animasyon için başlangıç */
+            transform: translateY(20px); /* Animasyon için başlangıç */
+            animation: fadeInHero 1s forwards;
+        }
+        @keyframes fadeInHero {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            animation: bounce 3s infinite;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .btn {
+            margin-top: 2rem;
+            padding: 0.9rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 25px rgba(0, 184, 255, 0.4);
+        }
+        section {
+            padding: 6.5rem 2rem;
+            max-width: 1200px;
+            margin: auto;
+            opacity: 0; /* Scroll reveal için başlangıç */
+            transform: translateY(50px); /* Scroll reveal için başlangıç */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        section.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3.2rem;
+            position: relative;
+        }
+        .section-title::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        .services-container {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(6px);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: 0.4s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.09);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .service-card i {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* Müşteri Yorumları Stili */
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(6px);
+            padding: 1.8rem;
+            border-radius: 15px;
+            transition: 0.4s ease, box-shadow 0.3s ease;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            border-left: 5px solid var(--accent);
+        }
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.09);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .testimonial-card .author-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .testimonial-card .author-info .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        .testimonial-card p {
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--light);
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: min(100%, 600px);
+            margin: auto;
+        }
+        .contact input,
+        .contact textarea {
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .contact input:focus,
+        .contact textarea:focus {
+            border: 2px solid var(--accent);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .testimonials {
+            margin-top: 4rem;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-7px);}
+        }
+
+        /* WhatsApp Butonu */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25d366; /* WhatsApp yeşili */
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        @media(max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            nav ul.show {
+                display: flex;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.8);
+                position: absolute;
+                top: 70px; /* Header yüksekliğine göre ayarlandı */
+                right: 20px;
+                padding: 1rem;
+                border-radius: 10px;
+                z-index: 1001;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+            nav ul.show li {
+                margin: 0.5rem 0;
+            }
+            .menu-toggle {
+                display: inline-block;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--light);
+                cursor: pointer;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .whatsapp-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="WasdE Logo" class="logo-img">
-    <nav>
-      <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('show')">
-        <i class="fas fa-bars"></i>
-      </button>
-      <ul id="navLinks">
-        <li><a href="#anasayfa">Ana Sayfa</a></li>
-        <li><a href="#hizmetler">Hizmetler</a></li>
-        <li><a href="#iletisim">İletişim</a></li>
-      </ul>
-      <button class="theme-toggle" onclick="toggleTheme()">
-        <i class="fas fa-adjust"></i>
-      </button>
-    </nav>
-  </header>
+    <header>
+        <img src="logo.png" alt="WasdE Logo" class="logo-img">
+        <nav>
+            <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('show')">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="navLinks">
+                <li><a href="#anasayfa">Ana Sayfa</a></li>
+                <li><a href="#hizmetler">Hizmetler</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+            </ul>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-adjust"></i>
+            </button>
+        </nav>
+    </header>
 
-  <section id="anasayfa" class="hero">
-    <div id="lottie-animation" style="width:100px;height:100px;margin-bottom:1rem;"></div>
-    <h1>Geleceği Kodluyoruz</h1>
-    <p>Otomasyon, yapay zeka, domain yönetimi, web tasarımı ve özel yazılımlarla işletmenizi dijital dünyada öne çıkarıyoruz.</p>
-    <button class="btn" onclick="document.querySelector('#iletisim').scrollIntoView({behavior:'smooth'})">Teklif Al</button>
-  </section>
+    <section id="anasayfa" class="hero">
+        <div id="lottie-animation" style="width:100px;height:100px;margin-bottom:1rem;"></div>
+        <h1>Geleceği Kodluyoruz</h1>
+        <p>Otomasyon, yapay zeka, domain yönetimi, web tasarımı ve özel yazılımlarla işletmenizi dijital dünyada öne çıkarıyoruz.</p>
+        <button class="btn" onclick="document.querySelector('#iletisim').scrollIntoView({behavior:'smooth'})">Teklif Al</button>
+    </section>
 
-  <section id="hizmetler">
-    <h2 class="section-title">Hizmetler</h2>
-    <div class="services-container">
-      <div class="service-card"><i class="fa-solid fa-robot"></i><h3>Otomasyon</h3><p>İş süreçlerinizi hızlandıran çözümler.</p></div>
-      <div class="service-card"><i class="fa-solid fa-brain"></i><h3>Yapay Zeka</h3><p>Akıllı algoritmalar ile analiz ve tahmin.</p></div>
-      <div class="service-card"><i class="fa-solid fa-globe"></i><h3>Domain Yönetimi</h3><p>Marka kimliğinize özel alan adı hizmeti.</p></div>
-      <div class="service-card"><i class="fa-solid fa-paintbrush"></i><h3>Web Tasarımı</h3><p>Modern ve responsive arayüzler.</p></div>
-      <div class="service-card"><i class="fa-solid fa-code"></i><h3>Programlama</h3><p>Ölçeklenebilir özel yazılımlar.</p></div>
-      <div class="service-card"><i class="fa-solid fa-cubes"></i><h3>Özel Yazılımlar</h3><p>Sektör bazlı entegre çözümler.</p></div>
-      <div class="service-card"><i class="fa-solid fa-cloud"></i><h3>Bulut Çözümleri</h3><p>Esnek altyapılar ve veri erişimi.</p></div>
-      <div class="service-card"><i class="fa-solid fa-gears"></i><h3>Bot Kodlama</h3><p>Telegram, Discord ve web otomasyon botları geliştiriyoruz.</p></div>
-    </div>
-
-    <div class="testimonials">
-      <h2 class="section-title">Müşteri Yorumları</h2>
-      <div class="services-container">
-        <div class="service-card">
-          <i class="fa-solid fa-user"></i>
-          <h3>Ahmet Yıldız</h3>
-          <p>"Yazılım ekibi sayesinde web sitemiz yeni bir seviyeye ulaştı. Yapay zeka destekli önerileri sayesinde dönüşüm oranlarımız %40 arttı."</p>
+    <section id="hizmetler">
+        <h2 class="section-title">Hizmetler</h2>
+        <div class="services-container">
+            <div class="service-card"><i class="fa-solid fa-robot"></i><h3>Otomasyon</h3><p>İş süreçlerinizi hızlandıran çözümler ve verimlilik artışı.</p></div>
+            <div class="service-card"><i class="fa-solid fa-brain"></i><h3>Yapay Zeka</h3><p>Akıllı algoritmalarla veri analizi, öngörü ve iş zekası çözümleri.</p></div>
+            <div class="service-card"><i class="fa-solid fa-globe"></i><h3>Domain Yönetimi</h3><p>Marka kimliğinize özel alan adı kaydı, yönetimi ve güvenliği.</p></div>
+            <div class="service-card"><i class="fa-solid fa-paintbrush"></i><h3>Web Tasarımı</h3><p>Kullanıcı odaklı, modern ve responsive web siteleri tasarımları.</p></div>
+            <div class="service-card"><i class="fa-solid fa-code"></i><h3>Programlama</h3><p>İhtiyaçlarınıza özel, ölçeklenebilir ve güvenli yazılım geliştirme.</p></div>
+            <div class="service-card"><i class="fa-solid fa-cubes"></i><h3>Özel Yazılımlar</h3><p>Sektörünüze özel entegre iş çözümleri ve CRM/ERP uygulamaları.</p></div>
+            <div class="service-card"><i class="fa-solid fa-cloud"></i><h3>Bulut Çözümleri</h3><p>Esnek altyapılar, güvenli veri depolama ve kolay erişim imkanları.</p></div>
+            <div class="service-card"><i class="fa-solid fa-gears"></i><h3>Bot Kodlama</h3><p>Telegram, Discord ve web otomasyon botları ile iş akışı otomasyonu.</p></div>
         </div>
-        <div class="service-card">
-          <i class="fa-solid fa-user"></i>
-          <h3>Elif Demir</h3>
-          <p>"Otomasyon çözümleri tam ihtiyacımıza yönelik geliştirildi. Süreçlerimiz artık %70 daha verimli!"</p>
+
+        <div class="testimonials">
+            <h2 class="section-title">Müşteri Yorumları</h2>
+            <div class="services-container">
+                <div class="testimonial-card">
+                    <div class="author-info">
+                        <div class="avatar">AY</div>
+                        <h3>Ahmet Yıldız</h3>
+                    </div>
+                    <p>"Web sitemiz için yaptıkları yapay zeka entegrasyonu muazzam. Dönüşüm oranlarımız gözle görülür şekilde arttı, müşteri deneyimi ise harika!"</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="author-info">
+                        <div class="avatar">ED</div>
+                        <h3>Elif Demir</h3>
+                    </div>
+                    <p>"İşletmemiz için geliştirdikleri otomasyon çözümleri sayesinde süreçlerimiz %70 daha verimli hale geldi. Mükemmel bir iş çıkardılar!"</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="author-info">
+                        <div class="avatar">MK</div>
+                        <h3>Murat Kılıç</h3>
+                    </div>
+                    <p>"WasdE ekibiyle çalışmak gerçek bir keyifti. Özel yazılımları sayesinde operasyonel maliyetlerimiz düştü ve iş akışımız hızlandı. Şiddetle tavsiye ederim!"</p>
+                </div>
+            </div>
         </div>
-        <div class="service-card">
-          <i class="fa-solid fa-user"></i>
-          <h3>Murat Kılıç</h3>
-          <p>"Yapay zeka entegrasyonu sonrası müşteri hizmetleri sistemimiz adeta çağ atladı. Harikasınız!"</p>
+    </section>
+
+    <section id="iletisim">
+        <h2 class="section-title">İletişim</h2>
+        <div class="contact">
+            <form action="mailto:info@wasde.com.tr" method="post" enctype="text/plain">
+                <input type="text" name="name" placeholder="Ad Soyad" required>
+                <input type="email" name="email" placeholder="E‑posta" required>
+                <textarea name="message" rows="5" placeholder="Mesajınız" required></textarea>
+                <button type="submit" class="btn">Gönder</button>
+            </form>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="iletisim">
-    <h2 class="section-title">İletişim</h2>
-    <div class="contact">
-      <form action="mailto:info@wasde.com.tr" method="post" enctype="text/plain">
-        <input type="text" name="name" placeholder="Ad Soyad" required>
-        <input type="email" name="email" placeholder="E‑posta" required>
-        <textarea name="message" rows="5" placeholder="Mesajınız" required></textarea>
-        <button type="submit" class="btn">Gönder</button>
-      </form>
-    </div>
-  </section>
+    <footer>
+        © <span id="year"></span> WasdE Yazılım. Tüm hakları saklıdır.
+    </footer>
 
-  <footer>
-    © <span id="year"></span> WasdE Yazılım. Tüm hakları saklıdır.
-  </footer>
+    <a href="https://wa.me/TELEFONNUMARANIZ?text=Merhaba,%20WasdE%20websitesinden%20geliyorum.%20Bir%20teklif%20almak%20istiyorum." class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-    const navLinks = document.querySelectorAll('nav a');
-    window.addEventListener('scroll', () => {
-      const fromTop = window.scrollY + 120;
-      navLinks.forEach(link => {
-        const section = document.querySelector(link.hash);
-        if(section && section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop){
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
+        const navLinks = document.querySelectorAll('nav a');
+        window.addEventListener('scroll', () => {
+            const fromTop = window.scrollY + 120;
+            navLinks.forEach(link => {
+                const section = document.querySelector(link.hash);
+                if(section && section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop){
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Scroll Reveal Effect
+            const sections = document.querySelectorAll('section');
+            sections.forEach(sec => {
+                const sectionTop = sec.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight * 0.75) { /* %75'i ekrana girdiğinde */
+                    sec.classList.add('revealed');
+                }
+            });
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle('light');
         }
-      });
-    });
 
-    function toggleTheme() {
-      document.body.classList.toggle('light');
-    }
-
-    lottie.loadAnimation({
-      container: document.getElementById('lottie-animation'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: 'https://assets4.lottiefiles.com/packages/lf20_kyu7xb1v.json'
-    });
-  </script>
+        lottie.loadAnimation({
+            container: document.getElementById('lottie-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets4.lottiefiles.com/packages/lf20_kyu7xb1v.json' /* Lottie animasyonunuz */
+        });
+    </script>
 </body>
 </html>
