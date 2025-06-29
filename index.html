@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
@@ -54,12 +54,9 @@
       height: 42px;
       filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
     }
-    .theme-toggle {
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: var(--light);
-      font-size: 1.2rem;
+    nav {
+      display: flex;
+      align-items: center;
     }
     nav ul {
       list-style: none;
@@ -86,6 +83,14 @@
     nav a:hover::after,
     nav a.active::after {
       width: 100%;
+    }
+    .theme-toggle {
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 1.2rem;
+      margin-left: 1.5rem;
     }
     .hero {
       height: 100vh;
@@ -196,10 +201,28 @@
       40% {transform: translateY(-15px);}
       60% {transform: translateY(-7px);}
     }
-    @media(max-width: 600px) {
-      .hero h1 { font-size: 2.2rem; }
-      nav ul { flex-direction: column; display: none; background: #111; position: absolute; top: 60px; right: 20px; padding: 1rem; border-radius: 10px; }
-      nav ul.active { display: flex; }
+    @media(max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+      nav ul.show {
+        display: flex;
+        flex-direction: column;
+        background: #000;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        padding: 1rem;
+        border-radius: 10px;
+        z-index: 1001;
+      }
+      .menu-toggle {
+        display: inline-block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--light);
+      }
     }
   </style>
 </head>
@@ -207,15 +230,18 @@
   <header>
     <img src="logo.png" alt="WasdE Logo" class="logo-img">
     <nav>
+      <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('show')">
+        <i class="fas fa-bars"></i>
+      </button>
       <ul id="navLinks">
         <li><a href="#anasayfa">Ana Sayfa</a></li>
         <li><a href="#hizmetler">Hizmetler</a></li>
         <li><a href="#iletisim">İletişim</a></li>
       </ul>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-adjust"></i>
+      </button>
     </nav>
-    <button class="theme-toggle" onclick="toggleTheme()">
-      <i class="fas fa-adjust"></i>
-    </button>
   </header>
 
   <section id="anasayfa" class="hero">
@@ -235,7 +261,7 @@
       <div class="service-card"><i class="fa-solid fa-code"></i><h3>Programlama</h3><p>Ölçeklenebilir özel yazılımlar.</p></div>
       <div class="service-card"><i class="fa-solid fa-cubes"></i><h3>Özel Yazılımlar</h3><p>Sektör bazlı entegre çözümler.</p></div>
       <div class="service-card"><i class="fa-solid fa-cloud"></i><h3>Bulut Çözümleri</h3><p>Esnek altyapılar ve veri erişimi.</p></div>
-      <div class="service-card"><i class="fa-solid fa-shield-halved"></i><h3>Siber Güvenlik</h3><p>Veri güvenliği için 7/24 koruma.</p></div>
+      <div class="service-card"><i class="fa-solid fa-gears"></i><h3>Bot Kodlama</h3><p>Telegram, Discord ve web otomasyon botları geliştiriyoruz.</p></div>
     </div>
 
     <div class="testimonials">
